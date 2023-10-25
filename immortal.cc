@@ -134,16 +134,12 @@ u64 dive(u64 r, u64 c, u64 l) {
   // Solve bottom right corner of main square
   if (c > n && r > n)
     answer = (answer + dive(min(n, r - n), min(n, c - n), l)) % M;
-
-  // There can only be, at max, 1 side lobe remaining
-  // Further, we no longer need to worry about the corner nonesense
-  if (c <= r) 
-    return answer;
-
-  // Next power of 2
+  
+  // Next power of 2, we are now tackling the remaining side lobe that
+  // extends beyond the last n = 2^k for some k
   n *= 2;
   while (c > 2 * n - 1) {
-    answer = (answer + solve_side_lobe(r, n, l)) % M;
+    answer = (answer + solve_side_lobe_mod(r, n, l)) % M;
     n *= 2;
   }
 
