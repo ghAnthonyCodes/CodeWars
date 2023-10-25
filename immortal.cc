@@ -1,7 +1,6 @@
 #include <cstdint>
 #include <cmath>
 #include <cstdio>
-#include <cassert>
 #include <algorithm>
 #include <cstdlib>
 
@@ -20,10 +19,10 @@ class Mu64_t {
       this->n = n;
     };
     friend Mu64_t operator+(const Mu64_t &a, const Mu64_t &b) {
-      return Mu64_t(((a.n%M) + (b.n%M))%M);
+      return Mu64_t(((a.n % M) + (b.n % M)) % M);
     }
     friend Mu64_t operator+(const Mu64_t &a, const u64 &b) {
-      return Mu64_t(((a.n%M) + (b%M))%M);
+      return Mu64_t(((a.n % M) + (b % M)) % M);
     }
     friend Mu64_t operator-(const Mu64_t &a, const u64 &b) {
       return Mu64_t(((a.n % M) - (b % M) + M) % M);
@@ -114,7 +113,7 @@ u64 dive(u64 r, u64 c, u64 l) {
     if (l >= c - 1)
       return 0;  
     if ((c - l) % 2 == 0)
-      return (Mu64_t((c - l) / 2) * Mu64_t(c - l -1)).n;
+      return (Mu64_t((c - l) / 2) * Mu64_t(c - l - 1)).n;
     return (Mu64_t(c - l) * Mu64_t((c - l - 1) / 2)).n;
   }
     
@@ -174,6 +173,5 @@ u64 dive(u64 r, u64 c, u64 l) {
 /******************************************************************************/
 u64 elder_age(u64 m, u64 n, u64 l, u64 t) {
   M = t;
-  u64 answer = dive(m, n, l) % t;
-  return answer;
+  return dive(m, n, l);
 }
